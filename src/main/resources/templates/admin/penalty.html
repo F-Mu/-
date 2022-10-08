@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang=en xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{commons/HeadCommons::head}"></head>
+
+<body>
+<div th:replace="~{commons/AdminCommons::topbar}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="~{commons/AdminCommons::sidebar(active='return.html')}"></div>
+    </div>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <!-- Modal -->
+        <button id="returnButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#return"
+                hidden="hidden">
+        </button>
+        <div class="modal fade" id="return" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+             aria-labelledby="return"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="penaltyLabel">罚款</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p><h5 id="expect" th:text="'预期归还时间：'+${#dates.format(expect,'yyyy-MM-dd')}"></h5></p>
+                        <p><h5 id="now" th:text="'实际归还时间：'+${#dates.format(now,'yyyy-MM-dd')}"></h5></p>
+                        <p><h5 id="penalty" th:text="'罚款：'+${penalty}+'元'"></h5></p>
+                    </div>
+                    <td>
+                        <form method="post" id="penaltyReturn" th:action="@{/admin/return}" hidden="hidden">
+                            <div class="modal-body">
+                                <label>
+                                    <input type="text" hidden="hidden" name="id"
+                                           th:value="${id}">
+                                </label>
+                            </div>
+                        </form>
+                        <div class="modal-footer">
+                            <button class="btn btn-sm btn-primary" type="button" onclick=$("#penaltyReturn").submit()>提交
+                            </button>
+                        </div>
+                    </td>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script th:src="@{/js/jquery-3.5.1.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script>
+    $(document).ready(function () {
+        $("#returnButton").click()
+        console.log(1)
+    })
+</script>
+</body>
+
+</html>

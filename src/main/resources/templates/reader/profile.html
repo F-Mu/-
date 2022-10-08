@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang=en xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{commons/HeadCommons::head}"></head>
+
+<body>
+<div th:replace="~{commons/UserCommons::topbar}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="~{commons/UserCommons::sidebar(active='profile.html')}"></div>
+    </div>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <label class="container" th:text="'学号：'+${reader.getRId()}"></label>
+        <label class="container" th:text="'姓名：'+${reader.getRName()}"></label>
+        <label class="container" th:text="'性别：'+${reader.isRSex()?'男':'女'}"></label>
+        <label class="container" th:text="'专业：'+${reader.getRDept()}"></label>
+        <label class="container" th:text="'年级：'+${reader.getRGrade()}"></label>
+    </main>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+<script th:src="@{/js/jquery-3.5.1.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+
+</body>
+
+</html>

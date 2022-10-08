@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang=en xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{commons/HeadCommons::head}"></head>
+
+<body>
+<div th:replace="~{commons/AdminCommons::topbar}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="~{commons/AdminCommons::sidebar(active='books.html')}"></div>
+    </div>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <form th:action="@{/admin/successInsertBook}" method="post">
+            <div class="form-group">
+                <label>书籍编号</label>
+                <label>
+                    <input name="bId" class="form-control">
+                </label>
+            </div>
+            <div class="form-group">
+                <label>书籍名称</label>
+                <label>
+                    <input name="bName" class="form-control">
+                </label>
+            </div>
+            <div class="form-group">
+                <label>ISBN</label>
+                <label>
+                    <input name="isbn" class="form-control">
+                </label>
+            </div>
+            <div class="form-group">
+                <label>书籍类型</label>
+                <label>
+                    <select class="form-control" name="btId">
+                        <option th:value="${booktype.getBtId()}" th:text="${booktype.getBtName()}"
+                                th:each="booktype:${booktypeService.selectList(null)}">
+                    </select>
+                </label>
+            </div>
+            <div class="form-group">
+                <label>作者</label>
+                <label>
+                    <input name="bAuthor" class="form-control">
+                </label>
+            </div>
+            <div class="form-group">
+                <label>出版社</label>
+                <label>
+                    <input name="bPublish" class="form-control">
+                </label>
+            </div>
+            <div class="form-group">
+                <label>说明</label>
+                <label>
+                    <input name="bIntr" class="form-control">
+                </label>
+            </div>
+            <div class="form-group">
+                <label>数量</label>
+                <label>
+                    <input name="count" class="form-control">
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary">新增</button>
+        </form>
+    </main>
+</div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script th:src="@{/js/jquery-3.5.1.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+
+</html>

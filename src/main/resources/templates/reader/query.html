@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang=en xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{commons/HeadCommons::head}"></head>
+
+<body>
+<div th:replace="~{commons/UserCommons::topbar}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="~{commons/UserCommons::sidebar(active='books.html')}"></div>
+    </div>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span6">
+                    <form th:action="@{/reader/query/1}" method="post" style="float: left">
+                        <label>
+                            <input type="text" name="name" class="form-control" th:value="${name}">
+                        </label>
+                        <input type="submit" value="查询" class="btn btn-sm btn-primary">
+                    </form>
+                </div>
+                <div class="span6">
+                    <a class="page-link" th:href="@{/reader/popular}" style="float: right">热门书籍查询</a>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped table-sm">
+                <thead>
+                <tr>
+                    <th>书名</th>
+                    <th>作者</th>
+                    <th>ISBN</th>
+                    <th>类别</th>
+                    <th>出版社</th>
+                    <th>说明</th>
+                    <th>剩余/总量</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="book:${books}">
+                    <td th:text="${book.getBName()}"></td>
+                    <td th:text="${book.getBAuthor()}"></td>
+                    <td th:text="${book.getIsbn()}"></td>
+                    <td th:text="${booktypeService.getTypeById(book.getBtId())}"></td>
+                    <td th:text="${book.getBPublish()}"></td>
+                    <td th:text="${book.getBIntr()}"></td>
+                    <td th:text="${quantity.getRemainById(book.getBId())}+'/'+${quantity.getNumById(book.getBId())}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li th:style="${nowPage}==1?'display:none':''" class="page-item"><a class="page-link"
+                                                                                    th:href="@{'/reader/query/'+${prePage}(name=${name})}">&laquo;</a>
+                </li>
+                <li class="page-item"><a th:style="${nowPage}==1?'color: black;font-weight: bold':''"
+                                         th:class="${nowPage}==1?'nav-link disabled':'page-link'" th:href="@{/reader/query/1(name=${name})}">1</a>
+                </li>
+                <li class="page-item"><a th:style="${nowPage}==2?'color: black;font-weight: bold':''"
+                                         th:class="${nowPage}==2?'nav-link disabled':'page-link'" th:href="@{/reader/query/2(name=${name})}">2</a>
+                </li>
+                <li class="page-item"><a th:style="${nowPage}==3?'color: black;font-weight: bold':''"
+                                         th:class="${nowPage}==3?'nav-link disabled':'page-link'" th:href="@{/reader/query/3(name=${name})}">3</a>
+                </li>
+                <li th:style="${nowPage}==3?'display:none':''" class="page-item"><a class="page-link"
+                                                                                    th:href="@{'/reader/query/'+${sufPage}(name=${name})}">&raquo;</a>
+                </li>
+            </ul>
+        </nav>
+    </main>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+<script th:src="@{/js/jquery-3.5.1.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+
+</html>

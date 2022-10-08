@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang=en xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{commons/HeadCommons::head}"></head>
+
+<body>
+<div th:replace="~{commons/UserCommons::topbar}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="~{commons/UserCommons::sidebar(active='index.html')}"></div>
+    </div>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <label class="container" style="font-family: 'Times New Roman', Times, serif"
+               th:text="${welcome}+'!'+${session.loginUser}"></label>
+        <a th:href="@{/reader/borrow}">
+            <button type="submit" class="btn btn-primary">
+                您已借阅的书籍 <span class="badge badge-light" th:text="${borrow}"></span>
+            </button>
+        </a>
+        <br/>
+        <a th:href="@{/reader/return}">
+            <button type="submit" class="btn btn-primary">
+                您已归还的书籍 <span class="badge badge-light" th:text="${revert}"></span>
+            </button>
+        </a>
+    </main>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+<script th:src="@{/js/jquery-3.5.1.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+
+</body>
+
+</html>

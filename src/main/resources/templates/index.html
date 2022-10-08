@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <title>中国石油大学(北京) - 图书管理系统</title>
+    <link href="//mimghz.qiye.163.com/o/domain/202002131044/index/css/global.css" rel="stylesheet" type="text/css">
+    <link href="//mimghz.qiye.163.com/o/domain/202002131044/index/css/user.css" rel="stylesheet" type="text/css">
+    <link href="//mimghz.qiye.163.com/o/domain/202002131044/index/css/custom.css" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        .login-mod h2 {
+            background-image: url(//mimghz.qiye.163.com/o/domain/202002131044/index/css/../img/bg_cn_noqiye.png);
+            background-repeat: no-repeat;
+        }
+
+        .login-mod-wrapper {
+            width: 413px;
+            height: 280px;
+            position: absolute;
+            top: 40px;
+            left: 498px;
+        }
+
+        .login-mod-form {
+            background: url(//mimghz.qiye.163.com/o/domain/202002131044/index/css/../img/loginFormBg.png) no-repeat;
+        }
+
+        .login-mod .fi-notit {
+            padding-left: 30px;
+        }
+
+        .fi {
+            padding: 5px 0 !important;
+        }
+
+        .page {
+            position: fixed;
+            top: 125px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <div class="body">
+        <div class="part main-part" id="main-part"
+             style="background-image: url(https://mailhz.qiye.163.com/qiyeimage/bg/student_cup_edu_cn/14999127068461499912706846.jpg);">
+            <div id="login-mod-wrapper" class="login-mod-wrapper login-mod-form login-mod-wrapper-3"
+                 style="cursor: default; display: block;">
+                <div class="mod login-mod">
+                    <form name="loginform" id="loginform" method="post" th:action="@{/login}">
+                        <h2>
+                            用户登录
+                        </h2>
+                        <div class="fi">
+                            <label class="tit">
+                                用户名
+                            </label>
+                            <input type="text" name="username" id="account_name" class="ipt-t ipt-sample" value="">
+                        </div>
+                        <div class="fi">
+                            <label class="tit">
+                                密 码
+                            </label>
+                            <input type="password" class="ipt-t" name="password" id="password" value="">
+                        </div>
+                        <div class="fi fi-notit f-cb">
+                            <input type="submit" class="ipt-b" value="登　录" style="float:left;" id="submit-btn">
+                        </div>
+                        <p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+                        <div class="goto" style="margin-top:0;">
+                            <a th:href="@{/admin}" class="gotoLink">管理员登录</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang=en xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{commons/HeadCommons::head}"></head>
+
+<body>
+<div th:replace="~{commons/UserCommons::topbar}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="~{commons/UserCommons::sidebar(active='books.html')}"></div>
+    </div>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span6">
+                    <form th:action="@{/reader/popular}" method="post" style="float: left">
+                        <label>年级</label>
+                        <label>
+                            <select class="form-control" name="grade">
+                                <option value="0" th:selected="${grade==0}">无</option>
+                                <option value="1" th:selected="${grade==1}">大一</option>
+                                <option value="2" th:selected="${grade==2}">大二</option>
+                                <option value="3" th:selected="${grade==3}">大三</option>
+                                <option value="4" th:selected="${grade==4}">大四</option>
+                            </select>
+                        </label>
+                        <label>专业</label>
+                        <label>
+                            <select class="form-control" name="dept">
+                                <option value="无" th:selected="${dept=='无'}">无</option>
+                                <option value="计算机科学与技术" th:selected="${dept=='计算机科学与技术'}">计算机科学与技术</option>
+                                <option value="数学" th:selected="${dept=='数学'}">数学</option>
+                                <option value="石油工程" th:selected="${dept=='石油工程'}">石油工程</option>
+                                <option value="管理" th:selected="${dept=='管理'}">管理</option>
+                                <option value="英语" th:selected="${dept=='英语'}">英语</option>
+                            </select>
+                        </label>
+                        <label>书籍类别</label>
+                        <label>
+                            <select class="form-control" name="type">
+                                <option value="无">无</option>
+                                <option th:each="booktype:${booktypes}" th:value="${booktype.getBtName()}"
+                                        th:text="${booktype.getBtName()}"
+                                        th:selected="${type==booktype.getBtName()}"></option>
+                            </select>
+                        </label>
+                        <input type="submit" value="查询" class="btn btn-sm btn-primary">
+                    </form>
+                </div>
+                <div class="span6">
+                    <a class="page-link" th:href="@{/reader/books/1}" style="float: right">按名称查询</a>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped table-sm">
+                <thead>
+                <tr>
+                    <th>书名</th>
+                    <th>类别</th>
+                    <th>借阅数量</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="book:${books}">
+                    <td th:text="${bookService.getNameById(book.getBId())}"></td>
+                    <td th:text="${book.getBType()}"></td>
+                    <td th:text="${book.getCount()}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+<script th:src="@{/js/jquery-3.5.1.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+
+</html>

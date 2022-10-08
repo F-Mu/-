@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang=en xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{commons/HeadCommons::head}"></head>
+
+<body>
+<div th:replace="~{commons/AdminCommons::topbar}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="~{commons/AdminCommons::sidebar(active='readers.html')}"></div>
+    </div>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span6">
+                    <form th:action="@{/admin/readers/query}" method="post" style="float: left">
+                        <label>
+                            <input type="text" name="id" class="form-control" placeholder="请输入学号">
+                        </label>
+                        <input type="submit" value="查询" class="btn btn-sm btn-primary">
+                    </form>
+                </div>
+                <div class="span6">
+                    <a class="page-link" th:href="@{/admin/addReader}" style="float: right">新增读者</a>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped table-sm">
+                <thead>
+                <tr>
+                    <th>学号</th>
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>年级</th>
+                    <th>专业</th>
+                    <th>修改</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="reader:${readers}">
+                    <td th:text="${reader.getRId()}"></td>
+                    <td th:text="${reader.getRName()}"></td>
+                    <td th:text="${reader.isRSex()?'男':'女'}"></td>
+                    <td th:text="${reader.getRGrade()}"></td>
+                    <td th:text="${reader.getRDept()}"></td>
+                    <td>
+                        <form method="post" th:action="@{/admin/updateReader}">
+                            <label>
+                                <input hidden="hidden" name="id" th:value="${reader.getRId()}">
+                            </label>
+                            <button type="submit" class="btn btn-sm btn-primary">修改</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li th:style="${nowPage}==1?'display:none':''" class="page-item"><a class="page-link"
+                                                                                    th:href="@{'/admin/readers/'+${prePage}}">&laquo;</a>
+                </li>
+                <li class="page-item"><a th:style="${nowPage}==1?'color: black;font-weight: bold':''"
+                                         th:class="${nowPage}==1?'nav-link disabled':'page-link'"
+                                         th:href="@{/admin/readers/1}">1</a>
+                </li>
+                <li class="page-item"><a th:style="${nowPage}==2?'color: black;font-weight: bold':''"
+                                         th:class="${nowPage}==2?'nav-link disabled':'page-link'"
+                                         th:href="@{/admin/readers/2}">2</a>
+                </li>
+                <li class="page-item"><a th:style="${nowPage}==3?'color: black;font-weight: bold':''"
+                                         th:class="${nowPage}==3?'nav-link disabled':'page-link'"
+                                         th:href="@{/admin/readers/3}">3</a>
+                </li>
+                <li th:style="${nowPage}==3?'display:none':''" class="page-item"><a class="page-link"
+                                                                                    th:href="@{'/admin/readers/'+${sufPage}}">&raquo;</a>
+                </li>
+            </ul>
+        </nav>
+    </main>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+<script th:src="@{/js/jquery-3.5.1.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script>
+    ${""}
+</script>
+</body>
+
+</html>

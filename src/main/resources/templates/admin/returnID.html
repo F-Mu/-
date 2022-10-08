@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang=en xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{commons/HeadCommons::head}"></head>
+
+<body>
+<div th:replace="~{commons/AdminCommons::topbar}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="~{commons/AdminCommons::sidebar(active='return.html')}"></div>
+    </div>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <!-- Modal -->
+        <button id="returnButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#return"
+                hidden="hidden">
+        </button>
+        <div class="modal fade" id="return" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+             aria-labelledby="return"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="borrowLabel">学号</h5>
+                        <a th:href="@{/admin/books/1}">
+                            <button type="button" class="close" aria-label="Close"
+                                    th:href="@{/admin/books/1}">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </a>
+                    </div>
+                    <form method="post" th:action="@{/admin/return}">
+                        <div class="modal-body">
+                            <label>
+                                <input type="text" name="id" class="form-control" placeholder="学号">
+                            </label>
+                        </div>
+                        <div class="modal-footer">
+                            <a th:href="@{/admin/books/1}">
+                                <button type="button" class="btn btn-secondary">
+                                    关闭
+                                </button>
+                            </a>
+                            <button type="submit" class="btn btn-primary">确认</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script th:src="@{/js/jquery-3.5.1.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script>
+    $(document).ready(function () {
+        $("#returnButton").click()
+    })
+</script>
+</body>
+
+</html>
